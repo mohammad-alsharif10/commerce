@@ -3,11 +3,30 @@ import 'package:flutter/material.dart';
 
 ThemeData buildThemeData() {
   return ThemeData(
+    inputDecorationTheme: inputDecorationTheme(),
     appBarTheme: buildAppBarTheme(),
     scaffoldBackgroundColor: Colors.white,
     fontFamily: "Muli",
     textTheme: buildTextTheme(),
     visualDensity: VisualDensity.adaptivePlatformDensity,
+  );
+}
+
+InputDecorationTheme inputDecorationTheme() {
+  var outlineInputBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(20),
+    borderSide: BorderSide(color: kTextColor),
+    gapPadding: 10,
+  );
+  return InputDecorationTheme(
+    contentPadding: EdgeInsets.symmetric(
+      horizontal: 42,
+      vertical: 20,
+    ),
+    floatingLabelBehavior: FloatingLabelBehavior.always,
+    enabledBorder: outlineInputBorder,
+    focusedBorder: outlineInputBorder,
+    border: outlineInputBorder,
   );
 }
 

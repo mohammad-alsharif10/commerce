@@ -1,5 +1,6 @@
 import 'package:commerce/component/default_button.dart';
-import 'package:commerce/screen/splash/widget/splash_content.dart';
+import 'package:commerce/screen/sign_in/sign_in_screen.dart';
+import 'package:commerce/screen/splash/component/splash_content.dart';
 import 'package:commerce/util/constants.dart';
 import 'package:commerce/util/size_config.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,9 @@ class _ScaffoldBodyState extends State<ScaffoldBody> {
                     ),
                     DefaultButton(
                       text: "Continue",
-                      press: () {},
+                      press: () {
+                        Navigator.pushNamed(context, SignInScreen.routeName);
+                      },
                     ),
                     Spacer(),
                   ],

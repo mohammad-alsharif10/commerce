@@ -1,24 +1,36 @@
+import 'package:commerce/component/custom_suffix_icon.dart';
 import 'package:commerce/component/default_button.dart';
 import 'package:commerce/component/form_error.dart';
-import 'package:commerce/screen/forgot_password/forgot_password_screen.dart';
-import 'package:commerce/screen/log_in_success/Log_in_success_screen.dart';
 import 'package:commerce/util/constants.dart';
 import 'package:commerce/util/size_config.dart';
 import 'package:flutter/material.dart';
 
-import '../../../component/custom_suffix_icon.dart';
-
-class SignInForm extends StatefulWidget {
+class SignUpForm extends StatefulWidget {
   @override
-  _SignInFormState createState() => _SignInFormState();
+  _SignUpFormState createState() => _SignUpFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
   String email;
   String password;
-  bool rememberMe = false;
+  String confirmPassword;
+
+  void addError({String error}) {
+    if (!errors.contains(error))
+      setState(() {
+        errors.add(error);
+      });
+  }
+
+  void removeError({String error}) {
+    if (errors.contains(error)) {
+      setState(() {
+        errors.remove(error);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,46 +40,31 @@ class _SignInFormState extends State<SignInForm> {
         children: [
           buildEmailFormField(),
           SizedBox(
-            height: getProportionateScreenHeight(20),
+            height: getProportionateScreenHeight(30),
           ),
           buildPasswordFormField(),
           SizedBox(
-            height: getProportionateScreenHeight(20),
+            height: getProportionateScreenHeight(30),
+          ),
+          buildRepeatPasswordFormField(),
+          SizedBox(
+            height: getProportionateScreenHeight(30),
           ),
           FormErrors(
             errors: errors,
           ),
           SizedBox(
-            height: getProportionateScreenHeight(20),
-          ),
-          Row(
-            children: [
-              Checkbox(
-                activeColor: kPrimaryColor,
-                value: rememberMe,
-                onChanged: (value) => setState(() => rememberMe = value),
-              ),
-              Text("Remember Me"),
-              Spacer(),
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                    context, ForgotPasswordScreen.routeName),
-                child: Text(
-                  "Forgot Password",
-                  style: TextStyle(decoration: TextDecoration.underline),
-                ),
-              ),
-            ],
+            height: getProportionateScreenHeight(30),
           ),
           DefaultButton(
             text: "Continue",
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                Navigator.pushNamed(context, LogInSuccessScreen.routeName);
+                // Navigator.pushNamed(context, LogInSuccessScreen.routeName);
               }
             },
-          ),
+          )
         ],
       ),
     );
@@ -86,6 +83,25 @@ class _SignInFormState extends State<SignInForm> {
       decoration: InputDecoration(
         labelText: "Password",
         hintText: "Enter Your Password",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Lock.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildRepeatPasswordFormField() {
+    return TextFormField(
+      onSaved: (newValue) => confirmPassword = newValue,
+      onChanged: (value) {
+        onChangeRepeatPasswordValue(value);
+      },
+      validator: (value) {
+        return passwordRepeatValidator(value);
+      },
+      obscureText: true,
+      decoration: InputDecoration(
+        labelText: "Confirm Password",
+        hintText: "Repeat Your Password",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
@@ -159,6 +175,27 @@ class _SignInFormState extends State<SignInForm> {
       setState(() {
         errors.add(kShortPassError);
       });
+      return "";
+    }
+    return null;
+  }
+
+  void onChangeRepeatPasswordValue(value) {
+    if (value.isNotEmpty) {
+      removeError(error: kPassNullError);
+    }
+    if (password == value) {
+      removeError(error: kMatchPassError);
+    }
+    confirmPassword = value;
+  }
+
+  String passwordRepeatValidator(value) {
+    if (value.isEmpty) {
+      addError(error: kPassNullError);
+      return "";
+    } else if ((password != value)) {
+      addError(error: kMatchPassError);
       return "";
     }
     return null;

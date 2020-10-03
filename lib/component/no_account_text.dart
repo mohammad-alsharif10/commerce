@@ -19,7 +19,7 @@ class NoAccountText extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            return Navigator.pushNamed(context, SignUpScreen.routeName);
+            Navigator.pushNamed(context, SignUpScreen.routeName);
           },
           child: Text(
             "Sign Up",

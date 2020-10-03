@@ -1,6 +1,7 @@
 import 'package:commerce/component/default_button.dart';
 import 'package:commerce/component/form_error.dart';
 import 'package:commerce/screen/forgot_password/forgot_password_screen.dart';
+import 'package:commerce/screen/log_in_success/Log_in_success_screen.dart';
 import 'package:commerce/util/constants.dart';
 import 'package:commerce/util/size_config.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class _SignInFormState extends State<SignInForm> {
               Text("Remember Me"),
               Spacer(),
               GestureDetector(
-                onTap: () => Navigator.popAndPushNamed(
+                onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
                 child: Text(
                   "Forgot Password",
@@ -63,6 +64,7 @@ class _SignInFormState extends State<SignInForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+                Navigator.pushNamed(context, LogInSuccessScreen.routeName);
               }
             },
           ),
@@ -109,11 +111,13 @@ class _SignInFormState extends State<SignInForm> {
       setState(() {
         errors.add(kEmailNullError);
       });
+      return "";
     } else if (!emailValidatorRegExp.hasMatch(value) &&
         !errors.contains(kInvalidEmailError)) {
       setState(() {
         errors.add(kInvalidEmailError);
       });
+      return "";
     }
     return null;
   }
@@ -148,10 +152,12 @@ class _SignInFormState extends State<SignInForm> {
       setState(() {
         errors.add(kPassNullError);
       });
+      return "";
     } else if (value.length < 8 && !errors.contains(kShortPassError)) {
       setState(() {
         errors.add(kShortPassError);
       });
+      return "";
     }
     return null;
   }

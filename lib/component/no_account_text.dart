@@ -1,3 +1,4 @@
+import 'package:commerce/screen/sign_up/sign_up_screen.dart';
 import 'package:commerce/util/constants.dart';
 import 'package:commerce/util/size_config.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class NoAccountText extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            // return Navigator.pushNamed(context, SignUpScreen.routeName);
+            return Navigator.pushNamed(context, SignUpScreen.routeName);
           },
           child: Text(
             "Sign Up",

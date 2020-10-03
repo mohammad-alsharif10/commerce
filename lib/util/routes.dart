@@ -1,3 +1,4 @@
+import 'package:commerce/screen/forgot_password/forgot_password_screen.dart';
 import 'package:commerce/screen/sign_in/sign_in_screen.dart';
 import 'package:commerce/screen/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
   SignInScreen.routeName: (context) => SignInScreen(),
-  // ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
+  ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
   // LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
   // SignUpScreen.routeName: (context) => SignUpScreen(),
   // CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),

@@ -1,6 +1,7 @@
 import 'package:commerce/component/custom_suffix_icon.dart';
 import 'package:commerce/component/default_button.dart';
 import 'package:commerce/component/form_error.dart';
+import 'package:commerce/screen/complete_profile/complete_profile_screen.dart';
 import 'package:commerce/util/constants.dart';
 import 'package:commerce/util/size_config.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                // Navigator.pushNamed(context, LogInSuccessScreen.routeName);
+                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               }
             },
           )

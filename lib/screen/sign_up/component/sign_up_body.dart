@@ -2,7 +2,6 @@ import 'package:commerce/component/social_card.dart';
 import 'package:commerce/screen/sign_up/component/sign_up_form.dart';
 import 'package:commerce/util/constants.dart';
 import 'package:commerce/util/size_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SignUpBody extends StatelessWidget {
